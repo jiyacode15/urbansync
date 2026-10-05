@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UrbanSync | Citizen Voice. Smarter City.</title>
+  <meta name="description" content="UrbanSync connects citizens to city services through smart issue reporting and real-time civic insights." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <nav class="navbar glass">
+        <a href="/" class="brand"><span class="brand-mark">U</span>URBANSYNC</a>
+        <button class="nav-toggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+        <div class="nav-menu">
+          <a href="/">Home</a>
+          <a href="#pulse">City Pulse</a>
+          <a href="/report">Report Issue</a>
+          <a href="/issues">Explore Issues</a>
+          <a href="/services">Services</a>
+          <a href="/community">Community</a>
+          <a href="/admin">Dashboard</a>
+        </div>
+        <div class="nav-actions">
+          <a class="link-btn" href="/admin/login">Login</a>
+          <a class="primary-btn" href="/report">Get Started</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero section-space">
+        <div class="hero-copy">
+          <span class="section-tag">URBANSYNC NETWORK • LIVE</span>
+          <h1>Your City.<br />Your Voice.<br />One Intelligent Network.</h1>
+          <p>Report problems, connect with urban services and help build a smarter, more responsive city.</p>
+          <div class="hero-actions">
+            <a class="primary-btn" href="/report">REPORT AN ISSUE</a>
+            <a class="secondary-btn" href="#pulse">EXPLORE CITY PULSE</a>
+          </div>
+          <div class="hero-metrics">
+            <div><strong data-counter="127">0</strong><span>Active reports</span></div>
+            <div><strong data-counter="34">0</strong><span>Resolved today</span></div>
+            <div><strong data-counter="91">0</strong><span>Citizen satisfaction</span></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="city-scene">
+            <div class="grid-glow"></div>
+            <div class="building b1"></div>
+            <div class="building b2"></div>
+            <div class="building b3"></div>
+            <div class="building b4"></div>
+            <div class="building b5"></div>
+            <div class="data-particle p1"></div>
+            <div class="data-particle p2"></div>
+            <div class="data-particle p3"></div>
+            <div class="data-particle p4"></div>
+            <div class="status-card glass mini-card">
+              <div class="status-header"><span class="live-dot"></span> CITY NETWORK</div>
+              <div class="status-list">
+                <div><span>Services Online</span><strong>08</strong></div>
+                <div><span>Active Reports</span><strong>127</strong></div>
+                <div><span>Resolved Today</span><strong>34</strong></div>
+                <div><span>Citizen Satisfaction</span><strong>91%</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pulse" class="section-space">
+        <div class="section-heading">
+          <span class="section-tag">LIVE CITY PULSE</span>
+          <h2>Urban services in motion</h2>
+        </div>
+        <div class="stats-grid" id="city-pulse-grid">
+          <article class="stat-card glass"><i class="fa-solid fa-file-circle-exclamation"></i><div><span>Open Issues</span><strong id="stat-open">0</strong><small>↓ 8% this week</small></div></article>
+          <article class="stat-card glass"><i class="fa-solid fa-check"></i><div><span>Resolved Today</span><strong id="stat-resolved">0</strong><small>↑ 12% from yesterday</small></div></article>
+          <article class="stat-card glass"><i class="fa-solid fa-clock"></i><div><span>Average Response Time</span><strong id="stat-response">0h</strong><small>Improving network speed</small></div></article>
+          <article class="stat-card glass"><i class="fa-solid fa-heart"></i><div><span>Citizen Satisfaction</span><strong id="stat-satisfaction">0%</strong><small>Strong service feedback</small></div></article>
+          <article class="stat-card glass"><i class="fa-solid fa-wifi"></i><div><span>Services Online</span><strong id="stat-services">0</strong><small>Network stable and live</small></div></article>
+        </div>
+      </section>
+
+      <section class="section-space spotlight">
+        <div class="section-heading">
+          <span class="section-tag">CITY INTELLIGENCE</span>
+          <h2>Data insights</h2>
+        </div>
+        <div class="insight-list" id="insight-list"></div>
+      </section>
+
+      <section class="section-space">
+        <div class="section-heading">
+          <span class="section-tag">NEED IMMEDIATE HELP?</span>
+          <h2>Emergency contact panel</h2>
+        </div>
+        <div class="emergency-grid">
+          <div class="emergency-item glass"><span>Police</span><strong>112</strong></div>
+          <div class="emergency-item glass"><span>Fire</span><strong>101</strong></div>
+          <div class="emergency-item glass"><span>Ambulance</span><strong>108</strong></div>
+        </div>
+        <p class="muted-note">UrbanSync reporting is not a replacement for emergency services.</p>
+      </section>
+
+      <section class="section-space">
+        <div class="section-heading">
+          <span class="section-tag">EXPLORE ISSUES</span>
+          <h2>Latest city reports</h2>
+        </div>
+        <div id="featured-issues" class="issue-preview-grid"></div>
+      </section>
+
+      <section class="section-space services-section">
+        <div class="section-heading">
+          <span class="section-tag">CITY SERVICES</span>
+          <h2>Service network overview</h2>
+        </div>
+        <div id="services-overview" class="services-grid"></div>
+      </section>
+
+      <section class="section-space community-section">
+        <div class="section-heading">
+          <span class="section-tag">COMMUNITY VOICE</span>
+          <h2>Participation in city decisions</h2>
+        </div>
+        <div id="poll-container" class="poll-wrap"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <h3>URBANSYNC</h3>
+        <p>Citizen Voice. Smarter City.</p>
+      </div>
+      <p>Prototype developed for Urban Systems – Semester V</p>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="{{ url_for('static', path='js/main.js') }}?v=2"></script>
+</body>
+</html>

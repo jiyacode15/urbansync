@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>City Services | UrbanSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <nav class="navbar glass">
+      <a href="/" class="brand"><span class="brand-mark">U</span>URBANSYNC</a>
+      <button class="nav-toggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+      <div class="nav-menu">
+        <a href="/">Home</a>
+        <a href="/issues">Explore Issues</a>
+        <a href="/report">Report Issue</a>
+        <a href="/services">Services</a>
+        <a href="/community">Community</a>
+        <a href="/admin">Dashboard</a>
+      </div>
+      <div class="nav-actions">
+        <a class="link-btn" href="/admin/login">Login</a>
+        <a class="primary-btn" href="/report">Get Started</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-wrap section-space">
+    <div class="section-heading">
+      <span class="section-tag">CITY SERVICES</span>
+      <h2>Service network overview</h2>
+    </div>
+    <div id="service-grid" class="services-grid"></div>
+
+    <div class="section-space">
+      <div class="section-heading">
+        <span class="section-tag">CITY SERVICE HEALTH</span>
+        <h2>Demo service performance</h2>
+      </div>
+      <div id="service-health" class="health-grid"></div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="{{ url_for('static', path='js/main.js') }}?v=2"></script>
+  <script src="{{ url_for('static', path='js/dashboard.js') }}"></script>
+</body>
+</html>

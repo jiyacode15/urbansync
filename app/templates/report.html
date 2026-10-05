@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Issue | UrbanSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <nav class="navbar glass"> 
+      <a href="/" class="brand"><span class="brand-mark">U</span>URBANSYNC</a>
+      <button class="nav-toggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+      <div class="nav-menu">
+        <a href="/">Home</a>
+        <a href="/issues">Explore Issues</a>
+        <a href="/report">Report Issue</a>
+        <a href="/services">Services</a>
+        <a href="/community">Community</a>
+        <a href="/admin">Dashboard</a>
+      </div>
+      <div class="nav-actions">
+        <a class="link-btn" href="/admin/login">Login</a>
+        <a class="primary-btn" href="/report">Get Started</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-wrap section-space">
+    <section class="form-shell glass">
+      <div class="section-heading narrow">
+        <span class="section-tag">REPORT ISSUE</span>
+        <h2>Share a civic concern</h2>
+      </div>
+      <form id="report-form" class="report-form">
+        <div class="grid-two">
+          <div class="field">
+            <label for="title">Issue Title</label>
+            <input id="title" name="title" type="text" required />
+          </div>
+          <div class="field">
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+              <option value="Road & Potholes">Road & Potholes</option>
+              <option value="Garbage & Waste">Garbage & Waste</option>
+              <option value="Street Lights">Street Lights</option>
+              <option value="Water Supply">Water Supply</option>
+              <option value="Drainage">Drainage</option>
+              <option value="Traffic">Traffic</option>
+              <option value="Public Transport">Public Transport</option>
+              <option value="Public Safety">Public Safety</option>
+              <option value="Parks">Parks</option>
+              <option value="Noise Pollution">Noise Pollution</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" rows="5" required></textarea>
+        </div>
+
+        <div class="grid-two">
+          <div class="field">
+            <label for="area">Location / Area</label>
+            <input id="area" name="area" type="text" required />
+          </div>
+          <div class="field">
+            <label for="landmark">Landmark</label>
+            <input id="landmark" name="landmark" type="text" />
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <div class="field">
+            <label for="priority">Priority</label>
+            <select id="priority" name="priority">
+              <option value="Low">Low</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="High">High</option>
+              <option value="Critical">Critical</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Location</label>
+            <button type="button" class="secondary-btn" id="use-location-btn">Use My Location</button>
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <div class="field">
+            <label for="citizen_name">Citizen Name</label>
+            <input id="citizen_name" name="citizen_name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone (optional)</label>
+          <input id="phone" name="phone" type="tel" />
+        </div>
+
+        <div class="field file-field">
+          <label for="imageUpload">Issue Photo</label>
+          <input id="imageUpload" type="file" accept="image/*" />
+          <div id="imagePreview" class="image-preview"></div>
+        </div>
+
+        <div class="hidden-ga"><input type="hidden" id="latitude" name="latitude" /><input type="hidden" id="longitude" name="longitude" /></div>
+
+        <button type="submit" class="primary-btn full-width">SUBMIT REPORT</button>
+      </form>
+    </section>
+  </main>
+
+  <div id="duplicateModal" class="modal hidden">
+    <div class="modal-card glass">
+      <button class="close-modal" type="button">×</button>
+      <h3>Similar reports found nearby.</h3>
+      <div id="duplicateList"></div>
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" id="report-anyway-btn">REPORT ANYWAY</button>
+        <button type="button" class="primary-btn" id="view-existing-btn">VIEW EXISTING REPORT</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="{{ url_for('static', path='js/report.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }} | UrbanSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  {% if page_key == "map" %}<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />{% endif %}
+  {% if page_key == "analytics" %}<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>{% endif %}
+  <link rel="stylesheet" href="{{ url_for('static', path='css/admin.css') }}?v=2" />
+</head>
+<body>
+  <div class="admin-shell" data-admin-page="{{ page_key }}">
+    {% include "_admin_sidebar.html" %}
+    <main class="admin-main">
+      <div class="admin-header glass">
+        <div>
+          <span class="section-tag">URBANSYNC • CITY COMMAND CENTER</span>
+          <h1>{{ page_title }}</h1>
+        </div>
+        <a class="secondary-btn" href="/admin/login">Logout</a>
+      </div>
+
+      {% if page_key == "issues" %}
+      <section class="admin-panel glass section-panel">
+        <div class="section-toolbar">
+          <div><span class="section-tag">ISSUE MANAGEMENT</span><h2>City reports</h2></div>
+          <input id="admin-search" type="search" placeholder="Search ticket, issue, area..." aria-label="Search issues" />
+        </div>
+        <div class="filter-row">
+          <select id="filter-category" aria-label="Filter by category"><option value="">All categories</option></select>
+          <select id="filter-status" aria-label="Filter by status"><option value="">All statuses</option></select>
+          <select id="filter-priority" aria-label="Filter by priority"><option value="">All priorities</option></select>
+          <select id="filter-area" aria-label="Filter by area"><option value="">All areas</option></select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Ticket ID</th><th>Issue</th><th>Category</th><th>Area</th><th>Priority</th><th>Department</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="admin-issue-table"></tbody>
+          </table>
+        </div>
+      </section>
+      {% elif page_key == "map" %}
+      <section class="admin-panel glass section-panel">
+        <div class="panel-heading"><span class="section-tag">CITY MAP • DEMO DATA</span><h2>Issue locations across the service area</h2></div>
+        <div id="admin-city-map" class="admin-city-map" role="application" aria-label="Map of reported civic issues"></div>
+        <div id="map-issue-list" class="map-issue-list"></div>
+      </section>
+      {% elif page_key == "departments" %}
+      <section class="admin-panel glass section-panel">
+        <div class="panel-heading"><span class="section-tag">DEPARTMENT DIRECTORY</span><h2>Department service load</h2></div>
+        <div id="department-grid" class="department-grid" aria-live="polite"></div>
+      </section>
+      {% elif page_key == "analytics" %}
+      <section class="chart-grid analytics-chart-grid">
+        <div class="chart-card glass"><h2>Issues by Category</h2><canvas id="categoryChart"></canvas></div>
+        <div class="chart-card glass"><h2>Issues by Area</h2><canvas id="areaChart"></canvas></div>
+        <div class="chart-card glass"><h2>Reports vs Resolutions</h2><canvas id="resolutionChart"></canvas></div>
+        <div class="chart-card glass"><h2>Priority Distribution</h2><canvas id="priorityChart"></canvas></div>
+        <div class="chart-card glass"><h2>Monthly Reports</h2><canvas id="monthlyChart"></canvas></div>
+        <div class="chart-card glass"><h2>Resolution Rate</h2><div id="resolution-rate" class="large-metric"></div></div>
+      </section>
+      {% elif page_key == "feedback" %}
+      <section id="feedback-summary" class="kpi-grid"></section>
+      <section class="admin-panel glass section-panel">
+        <div class="panel-heading"><span class="section-tag">CITIZEN FEEDBACK</span><h2>Recent service ratings</h2></div>
+        <div id="rating-distribution" class="rating-distribution"></div>
+        <div id="feedback-list" class="feedback-list" aria-live="polite"></div>
+      </section>
+      {% elif page_key == "performance" %}
+      <section class="admin-panel glass section-panel">
+        <div class="panel-heading"><span class="section-tag">SERVICE PERFORMANCE</span><h2>Department scorecards</h2></div>
+        <div id="performance-grid" class="performance-grid" aria-live="polite"></div>
+      </section>
+      {% endif %}
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  {% if page_key == "map" %}<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>{% endif %}
+  <script src="{{ url_for('static', path='js/admin.js') }}?v=2"></script>
+</body>
+</html>

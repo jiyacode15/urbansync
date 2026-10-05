@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Issue Detail | UrbanSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <nav class="navbar glass">
+      <a href="/" class="brand"><span class="brand-mark">U</span>URBANSYNC</a>
+      <button class="nav-toggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+      <div class="nav-menu">
+        <a href="/">Home</a>
+        <a href="/issues">Explore Issues</a>
+        <a href="/report">Report Issue</a>
+        <a href="/services">Services</a>
+        <a href="/community">Community</a>
+        <a href="/admin">Dashboard</a>
+      </div>
+      <div class="nav-actions">
+        <a class="link-btn" href="/admin/login">Login</a>
+        <a class="primary-btn" href="/report">Get Started</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-wrap section-space">
+    <div class="detail-layout">
+      <article class="issue-detail glass" id="issue-detail-card">
+        <div class="detail-header">
+          <span class="section-tag">ISSUE DETAIL</span>
+          <h2 id="detail-title">Loading issue…</h2>
+        </div>
+        <div class="detail-meta">
+          <div><strong>Ticket</strong><span id="detail-ticket"></span></div>
+          <div><strong>Priority</strong><span id="detail-priority"></span></div>
+          <div><strong>Status</strong><span id="detail-status"></span></div>
+          <div><strong>Department</strong><span id="detail-department"></span></div>
+          <div><strong>Location</strong><span id="detail-location"></span></div>
+          <div><strong>Reported Date</strong><span id="detail-date"></span></div>
+          <div><strong>Citizen Support</strong><span id="detail-support"></span></div>
+        </div>
+        <p id="detail-description" class="issue-copy"></p>
+        <button type="button" id="support-btn" class="primary-btn">I HAVE THIS ISSUE TOO</button>
+      </article>
+
+      <aside class="timeline glass">
+        <div class="section-heading narrow">
+          <span class="section-tag">SERVICE JOURNEY</span>
+          <h3>Timeline</h3>
+        </div>
+        <div id="timeline"></div>
+      </aside>
+    </div>
+  </main>
+  <div id="toast" class="toast"></div>
+  <script src="{{ url_for('static', path='js/main.js') }}?v=2"></script>
+  <script>
+    const issueId = {{ issue_id }};
+  </script>
+  <script src="{{ url_for('static', path='js/dashboard.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login | UrbanSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}" />
+</head>
+<body>
+  <main class="auth-wrap section-space">
+    <div class="auth-card glass">
+      <div class="section-heading narrow">
+        <span class="section-tag">ADMIN LOGIN</span>
+        <h2>URBANSYNC CITY COMMAND CENTER</h2>
+      </div>
+      <form id="admin-login-form" class="report-form">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" value="admin@urbansync.local" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="primary-btn full-width">LOGIN</button>
+      </form>
+      <p class="muted-note">Admin access is session-protected. Use a strong, private password for any public deployment.</p>
+    </div>
+  </main>
+  <div id="toast" class="toast"></div>
+  <script src="{{ url_for('static', path='js/admin.js') }}?v=2"></script>
+</body>
+</html>

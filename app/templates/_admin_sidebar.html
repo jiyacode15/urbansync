@@ -1,0 +1,18 @@
+<aside class="admin-sidebar glass">
+  <a class="admin-brand" href="/admin/dashboard"><span class="brand-mark">U</span> URBANSYNC</a>
+  <div class="system-live"><span class="live-dot"></span> SYSTEM LIVE</div>
+  <nav class="admin-nav" aria-label="Admin navigation">
+    {% set admin_links = [
+      ("/admin/dashboard", "Command Center"),
+      ("/admin/issues", "Issue Management"),
+      ("/admin/map", "City Map"),
+      ("/admin/departments", "Departments"),
+      ("/admin/analytics", "Analytics"),
+      ("/admin/feedback", "Citizen Feedback"),
+      ("/admin/performance", "Service Performance")
+    ] %}
+    {% for href, label in admin_links %}
+    <a href="{{ href }}"{% if request.url.path == href %} class="active" aria-current="page"{% endif %}>{{ label }}</a>
+    {% endfor %}
+  </nav>
+</aside>

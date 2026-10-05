@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | UrbanSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', path='css/admin.css') }}?v=2" />
+</head>
+<body>
+  <div class="admin-shell" data-admin-page="dashboard">
+    {% include "_admin_sidebar.html" %}
+
+    <main class="admin-main">
+      <div class="admin-header glass">
+        <div>
+          <span class="section-tag">CITY COMMAND CENTER</span>
+          <h1>City Command Center</h1>
+        </div>
+        <a id="logout-btn" class="secondary-btn" href="/admin/login">Logout</a>
+      </div>
+
+      <section class="kpi-grid" id="admin-kpis"></section>
+
+      <section class="admin-overview-grid">
+        <div class="admin-panel glass">
+          <div class="panel-heading"><span class="section-tag">LIVE CITY ACTIVITY</span><h2>Recent service updates</h2></div>
+          <div id="admin-activity" class="activity-list" aria-live="polite"></div>
+        </div>
+        <div class="admin-panel glass">
+          <div class="panel-heading"><span class="section-tag">CITY INTELLIGENCE</span><h2>Data insights</h2></div>
+          <div id="admin-insights" class="insight-list"></div>
+        </div>
+      </section>
+
+      <section class="chart-grid">
+        <div class="chart-card glass"><canvas id="categoryChart"></canvas></div>
+        <div class="chart-card glass"><canvas id="resolutionChart"></canvas></div>
+        <div class="chart-card glass"><canvas id="departmentChart"></canvas></div>
+        <div class="chart-card glass"><canvas id="satisfactionChart"></canvas></div>
+        <div class="chart-card glass"><canvas id="priorityChart"></canvas></div>
+        <div class="chart-card glass"><canvas id="statusChart"></canvas></div>
+      </section>
+
+      <section class="admin-table glass">
+        <div class="table-head">
+          <div><span class="section-tag">RECENT REPORTS</span><h2>Issue status overview</h2></div>
+          <a class="secondary-btn" href="/admin/issues">Manage all reports</a>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Ticket</th>
+                <th>Issue</th>
+                <th>Area</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Department</th>
+                <th>Reported</th>
+              </tr>
+            </thead>
+            <tbody id="admin-issue-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="{{ url_for('static', path='js/admin.js') }}?v=2"></script>
+</body>
+</html>
