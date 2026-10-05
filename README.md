@@ -224,6 +224,33 @@ The application resolves relative SQLite paths against the project root, so the 
 
 The issue photo control currently previews the selected image in the browser only; it does not upload or persist image files. External fonts, icons, Chart.js, Leaflet and OpenStreetMap map tiles are loaded from their respective third-party CDNs/services, so these visual features require network access from the visitor's browser.
 
+## Deployment — Vercel (prepared, not deployed)
+
+The existing FastAPI entry point is `app/main.py` (`app.main:app`), a location supported by Vercel's Python runtime. `requirements.txt` supplies the app dependencies; a separate `api/index.py`, manual catch-all rewrite, or replacement frontend is not needed. The included `vercel.json` explicitly packages the Jinja templates used at runtime. The existing `StaticFiles` mount continues serving the CSS and JavaScript assets. `.python-version` selects Python 3.12, which is compatible with the application's pinned dependencies.
+
+To connect this repository later:
+
+1. Import the existing GitHub repository into Vercel.
+2. Keep the Root Directory set to the repository root (`.`).
+3. Let Vercel detect the FastAPI/Python framework and install dependencies from `requirements.txt`. Do not add an output directory or a custom build command.
+4. Add the environment variables below in Vercel's Project Settings before deploying:
+   - `APP_ENV=production`
+   - `ADMIN_EMAIL=admin@urbansync.local` (or a private admin address)
+   - `ADMIN_PASSWORD` — set a strong, private value; do not use the public demo password.
+   - `SECRET_KEY` — set a randomly generated value of at least 32 characters.
+   - `DATABASE_URL=sqlite:////tmp/urbansync.db`
+5. When ready to deploy, use Vercel's dashboard deployment flow. Test the resulting site's `/health`, public pages, APIs, and admin login.
+
+The application still defaults to `sqlite:///./urbansync.db` in local development, so the local command remains:
+
+```powershell
+uvicorn app.main:app --reload
+```
+
+### SQLite on Vercel
+
+The Vercel `DATABASE_URL` above points SQLite to `/tmp`, a writable temporary location for serverless execution. This keeps a fresh function instance from failing when it initializes tables on Vercel's read-only deployment filesystem. It is **not durable storage**: the database may disappear when a function instance is recycled, and separate serverless instances can have separate temporary databases. Reports, votes, and feedback must not be treated as permanently stored or shared production data. SQLite is retained for the college prototype only; durable multi-instance data would require persistent storage or an external database in a future project change.
+
 ## Future scope
 The following improvements are possible future extensions but not currently implemented:
 - AI image-based issue classification

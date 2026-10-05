@@ -7,7 +7,12 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 
 from app.config import PROJECT_ROOT
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./urbansync.db")
+default_database_url = (
+    "sqlite:////tmp/urbansync.db"
+    if os.getenv("VERCEL") == "1"
+    else "sqlite:///./urbansync.db"
+)
+DATABASE_URL = os.getenv("DATABASE_URL", default_database_url)
 database_url = make_url(DATABASE_URL)
 
 if database_url.get_backend_name() == "sqlite":
